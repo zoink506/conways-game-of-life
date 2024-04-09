@@ -1,0 +1,25 @@
+#game-board {
+  display: flex;
+  flex-direction: column;
+  width: 512px;
+  height: 512px;
+  
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+}
+
+.cell {
+  flex-grow: 1;
+}
+
+.active {
+  background-color: yellow;
+}
+
+.disactive {
+  background-color: gray;
+}
