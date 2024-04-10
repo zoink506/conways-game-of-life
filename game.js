@@ -1,3 +1,6 @@
+// X = Active
+// 0 = Disactive
+
 function startGame() {
   const boardWidth = 16;
   const boardHeight = 16;
@@ -57,10 +60,19 @@ function updateCells(board) {
   return newBoard;
 }
 
-function updateCell(board, cellX, cellY) {
+function updateCell(board, cellY, cellX) {
   console.log("updateCell()");
-  return "test";
   // check neighbouring cells
+  const currentCell = board[cellY][cellX];
+  console.log(currentCell);
+
+  if(currentCell == "X") {
+    // Cell is active
+
+  } else {
+    // Cell is disactive
+    
+  }
 }
 
 function displayBoard(board) {
