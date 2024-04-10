@@ -1,6 +1,6 @@
 function startGame() {
-  const boardWidth = 32;
-  const boardHeight = 32;
+  const boardWidth = 16;
+  const boardHeight = 16;
 
   const gameBoard = [];
   for(let i = 0; i < boardWidth; i++) {
@@ -9,7 +9,7 @@ function startGame() {
     for(let j = 0; j < boardHeight; j++) {
       // Start with randomly chosen cell state
       // Change to user input later
-      if(Math.random() >= 0.4) {
+      if(Math.random() >= 0.5) {
         gameBoard[i][j] = "X";
       } else {
         gameBoard[i][j] = "O";
@@ -17,8 +17,50 @@ function startGame() {
     }
   }
 
-  console.log(gameBoard);
-  displayBoard(gameBoard);
+  game(gameBoard);
+}
+
+function game(startingBoard) {
+  console.log("game()");
+
+  let board = startingBoard;
+  board = round(board);
+}
+
+function round(board) {
+  console.log("round()");
+
+  displayBoard(board);
+  board = updateCells(board);
+  console.log(board);
+  return board;
+}
+
+function updateCells(board) {
+  console.log("updateCells()");
+
+  const newBoard = [];
+  for(let i = 0; i < board.length; i++) {
+    newBoard[i] = [];
+
+    for(let j = 0; j < board[i].length; j++) {
+      newBoard[i][j] = "O";
+    }
+  }
+
+  for(let k = 0; k < board.length; k++) {
+    for(let n = 0; n < board[k].length; n++) {
+      newBoard[k][n] = updateCell(board, k, n);
+    }
+  }
+
+  return newBoard;
+}
+
+function updateCell(board, cellX, cellY) {
+  console.log("updateCell()");
+  return "test";
+  // check neighbouring cells
 }
 
 function displayBoard(board) {
