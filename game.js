@@ -1,7 +1,21 @@
 // X = Active
 // 0 = Disactive
 
+Object.defineProperties(Array.prototype, {
+  count: {
+    value: function(query) {
+      // counts the amount of occurrences of the given value in the array
 
+      let n = 0;
+      for(let i = 0; i < this.length; i++) {
+        if(this[i] === query) {
+          n++;
+        }
+      }
+      return n;
+    }
+  }
+});
 
 function startGame() {
   const boardWidth = 8;
@@ -123,8 +137,8 @@ function updateCell(board, cellY, cellX) {
     bottomMiddle,  // bottom middle | 5
     bottomLeft,    // bottom left   | 6
     middleLeft     // middle left   | 7
-];
-console.log(neighbours);
+  ];
+  console.log(neighbours);
 
   if(currentCell === "X") {
     // Cell is active
