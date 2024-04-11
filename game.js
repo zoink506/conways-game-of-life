@@ -82,11 +82,24 @@ function updateCell(board, cellY, cellX) {
   console.log(`%cx: ${cellX}, y: ${cellY}`, 'font-weight: bold');
   console.log(currentCell);
 
+  // use these variables to determine whether the current cell needs to be alive or dead according to the rules
+  const neighbourCells = findNeighbourCells(board, cellX, cellY);
+  console.log(neighbourCells);
+
+  if(currentCell === "X") {
+    // Cell is active
+
+  } else {
+    // Cell is disactive
+
+  }
+}
+
+function findNeighbourCells(board, cellX, cellY) {
   // 8 neighbouring cells in an array
-  // clockwise starting from the top left to the middle left
+  // clockwise starting from the top left around to the middle left
   // first, check if the neighbouring cell is within the confines of the board
   // then, either assign the var to the neighbouring cell or keep it null (null represents outside of array bounds)
-  // use these variables to determine whether the current cell needs to be alive or dead according to the rules
 
   let topLeft = null;
   if(cellY-1 in board && cellX-1 in board[cellY-1]) {
@@ -138,15 +151,8 @@ function updateCell(board, cellY, cellX) {
     bottomLeft,    // bottom left   | 6
     middleLeft     // middle left   | 7
   ];
-  console.log(neighbours);
-
-  if(currentCell === "X") {
-    // Cell is active
-
-  } else {
-    // Cell is disactive
-
-  }
+  
+  return neighbours;
 }
 
 function displayBoard(board) {
