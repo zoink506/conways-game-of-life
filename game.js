@@ -21,7 +21,7 @@ function startGame() {
   const boardWidth = 8;
   const boardHeight = 8;
 
-  const gameBoard = [];
+  let gameBoard = [];
   for(let i = 0; i < boardWidth; i++) {
     gameBoard[i] = [];
 
@@ -36,21 +36,28 @@ function startGame() {
     }
   }
 
-  game(gameBoard);
+  let boardHistory = [];
+  displayBoard(gameBoard);
+  //board = round(board);
+
+  window.addEventListener('keydown', (e) => {
+    if(e.key === 'ArrowLeft') {
+      previousRound();
+    } else if(e.key === 'ArrowRight') {
+      gameBoard = nextRound(gameBoard);
+    }
+  });
 }
 
-function game(startingBoard) {
-  console.log("game()");
-
-  let board = startingBoard;
-  board = round(board);
+function previousRound() {
+  console.log('previousRound()');
 }
 
-function round(board) {
-  console.log("round()");
+function nextRound(board) {
+  console.log("nextRound()");
 
-  displayBoard(board);
   board = updateCells(board);
+  displayBoard(board);
   console.log(board);
   return board;
 }
@@ -99,7 +106,7 @@ function updateCell(board, cellY, cellX) {
 
   if(currentCell === "X") {
     // Cell is active
-    
+
   } else {
     // Cell is disactive
     if(neighbourCells.count('X') === 3 ) {
