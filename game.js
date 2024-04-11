@@ -110,15 +110,21 @@ function updateCell(board, cellY, cellX) {
   if(currentCell === "X") {
     // Cell is active
     
-    
+    if(neighbourCells.count('X') <= 1) {
+      return 'O';
+    } else if(neighbourCells.count('X') >= 4) {
+      return 'O';
+    } else if(neighbourCells.count('X') === 2 || neighbourCells.count('X') === 3) {
+      return 'X';
+    }
 
   } else {
     // Cell is disactive
     if(neighbourCells.count('X') === 3 ) {
       return 'X';
-    } else {
-      return 'O';
     }
+      
+    return 'O';
   }
 }
 
