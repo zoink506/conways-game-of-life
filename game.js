@@ -37,6 +37,7 @@ function startGame() {
   }
 
   let boardHistory = [];
+  boardHistory.push(gameBoard);
   displayBoard(gameBoard);
   //board = round(board);
 
@@ -45,6 +46,8 @@ function startGame() {
       previousRound();
     } else if(e.key === 'ArrowRight') {
       gameBoard = nextRound(gameBoard);
+      boardHistory.push(gameBoard);
+      console.log(boardHistory);
     }
   });
 }
@@ -106,11 +109,15 @@ function updateCell(board, cellY, cellX) {
 
   if(currentCell === "X") {
     // Cell is active
+    
+    
 
   } else {
     // Cell is disactive
     if(neighbourCells.count('X') === 3 ) {
       return 'X';
+    } else {
+      return 'O';
     }
   }
 }
