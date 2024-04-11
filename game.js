@@ -43,7 +43,14 @@ function startGame() {
 
   window.addEventListener('keydown', (e) => {
     if(e.key === 'ArrowLeft') {
-      previousRound();
+      console.log("arrow left");
+      if(boardHistory.length > 1) {
+        console.log("board reverting...");
+        boardHistory.pop();
+        gameBoard = boardHistory[boardHistory.length - 1];
+        displayBoard(gameBoard);
+      }
+
     } else if(e.key === 'ArrowRight') {
       gameBoard = nextRound(gameBoard);
       boardHistory.push(gameBoard);
@@ -123,7 +130,7 @@ function updateCell(board, cellY, cellX) {
     if(neighbourCells.count('X') === 3 ) {
       return 'X';
     }
-      
+
     return 'O';
   }
 }
