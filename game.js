@@ -1,9 +1,11 @@
 // X = Active
 // 0 = Disactive
 
+
+
 function startGame() {
-  const boardWidth = 16;
-  const boardHeight = 16;
+  const boardWidth = 8;
+  const boardHeight = 8;
 
   const gameBoard = [];
   for(let i = 0; i < boardWidth; i++) {
@@ -61,17 +63,75 @@ function updateCells(board) {
 }
 
 function updateCell(board, cellY, cellX) {
-  console.log("updateCell()");
   // check neighbouring cells
   const currentCell = board[cellY][cellX];
+  console.log(`%cx: ${cellX}, y: ${cellY}`, 'font-weight: bold');
   console.log(currentCell);
 
-  if(currentCell == "X") {
+  // 8 neighbouring cells in an array
+  // clockwise starting from the top left to the middle left
+  // first, check if the neighbouring cell is within the confines of the board
+  // then, either assign the var to the neighbouring cell or keep it null (null represents outside of array bounds)
+  // use these variables to determine whether the current cell needs to be alive or dead according to the rules
+
+  let topLeft = null;
+  if(cellY-1 in board && cellX-1 in board[cellY-1]) {
+    topLeft = board[cellY-1][cellX-1];
+  }
+
+  let topMiddle = null;
+  if(cellY-1 in board && cellX in board[cellY-1]) {
+    topMiddle = board[cellY-1][cellX];
+  }
+
+  let topRight = null;
+  if(cellY-1 in board && cellX+1 in board[cellY-1]) {
+    topRight = board[cellY-1][cellX+1];
+  }
+
+  let middleRight = null;
+  if(cellY in board && cellX+1 in board[cellY]) {
+    middleRight = board[cellY][cellX+1];
+  }
+
+  let bottomRight = null;
+  if(cellY+1 in board && cellX+1 in board[cellY+1]) {
+    bottomRight = board[cellY+1][cellX+1];
+  }
+  
+  let bottomMiddle = null;
+  if(cellY+1 in board && cellX in board[cellY+1]) {
+    bottomMiddle = board[cellY+1][cellX];
+  }
+
+  let bottomLeft = null;
+  if(cellY+1 in board && cellX-1 in board[cellY+1]) {
+    bottomLeft = board[cellY+1][cellX-1];
+  }
+
+  let middleLeft = null;
+  if(cellY in board && cellX-1 in board[cellY]) {
+    middleLeft = board[cellY][cellX-1];
+  }
+
+  const neighbours = [
+    topLeft,       // top left      | 0
+    topMiddle,     // top middle    | 1
+    topRight,      // top right     | 2
+    middleRight,   // middle right  | 3
+    bottomRight,   // bottom right  | 4
+    bottomMiddle,  // bottom middle | 5
+    bottomLeft,    // bottom left   | 6
+    middleLeft     // middle left   | 7
+];
+console.log(neighbours);
+
+  if(currentCell === "X") {
     // Cell is active
 
   } else {
     // Cell is disactive
-    
+
   }
 }
 
