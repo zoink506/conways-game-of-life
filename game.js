@@ -1,6 +1,13 @@
 // X = Active
 // 0 = Disactive
 
+/*
+TO DO LIST
+  > Allow user to choose grid size
+  > Allow user to manually activate and deactivate cells with the mouse
+  > Make a button to reset the board/game
+*/
+
 Object.defineProperties(Array.prototype, {
   count: {
     value: function(query) {
@@ -17,9 +24,9 @@ Object.defineProperties(Array.prototype, {
   }
 });
 
-function startGame() {
-  const boardWidth = 8;
-  const boardHeight = 8;
+function startGame(size) {
+  const boardWidth = size;
+  const boardHeight = size;
 
   let gameBoard = [];
   for(let i = 0; i < boardWidth; i++) {
@@ -68,7 +75,7 @@ function nextRound(board) {
 
   board = updateCells(board);
   displayBoard(board);
-  console.log(board);
+  //console.log(board);
   return board;
 }
 
@@ -96,12 +103,12 @@ function updateCells(board) {
 function updateCell(board, cellY, cellX) {
   // check neighbouring cells
   const currentCell = board[cellY][cellX];
-  console.log(`%cx: ${cellX}, y: ${cellY}`, 'font-weight: bold');
-  console.log(currentCell);
+  //console.log(`%cx: ${cellX}, y: ${cellY}`, 'font-weight: bold');
+  //console.log(currentCell);
 
   // use these variables to determine whether the current cell needs to be alive or dead according to the rules
   const neighbourCells = findNeighbourCells(board, cellX, cellY);
-  console.log(neighbourCells);
+  //console.log(neighbourCells);
 
   /*
     RULES:
@@ -223,4 +230,12 @@ function displayBoard(board) {
   }
 }
 
-startGame();
+const resetGridButton = document.getElementById("reset-grid");
+const gridSize = document.getElementById("grid-size");
+
+startGame(gridSize.value);
+
+gridSize.addEventListener("change", (e) => {
+  console.log(e.target.value);
+  startGame(e.target.value);
+});
