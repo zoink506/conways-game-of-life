@@ -64,6 +64,20 @@ function startGame(size) {
       console.log(boardHistory);
     }
   });
+
+  const clearGridButton = document.getElementById("clear-grid");
+  clearGridButton.addEventListener("click", (e) => {
+    boardHistory = [];
+    for(let k = 0; k < gridSize.value; k++) {
+      gameBoard[k] = [];
+
+      for(let n = 0; n < gridSize.value; n++) {
+        gameBoard[k][n] = 'O';
+      }
+    }
+
+    displayBoard(gameBoard);
+  });
 }
 
 function previousRound() {
@@ -238,4 +252,9 @@ startGame(gridSize.value);
 gridSize.addEventListener("change", (e) => {
   console.log(e.target.value);
   startGame(e.target.value);
+});
+
+resetGridButton.addEventListener("click", (e) => {
+  console.log(e);
+  startGame(gridSize.value);
 });
