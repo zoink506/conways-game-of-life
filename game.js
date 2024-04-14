@@ -8,6 +8,10 @@ TO DO LIST
   > Make a button to reset the board/game
 */
 
+// URGENT BUG
+// When the game restarts, all other instances of the startGame() function stays around
+// cause by the eventlisteners in startGame()
+
 Object.defineProperties(Array.prototype, {
   count: {
     value: function(query) {
@@ -25,28 +29,14 @@ Object.defineProperties(Array.prototype, {
 });
 
 function startGame(size) {
-  const boardWidth = size;
-  const boardHeight = size;
+  console.log("NEW GAME STARTING");
+  console.log(`Board Dimensions: ${size}x${size}`);
 
-  let gameBoard = [];
-  for(let i = 0; i < boardWidth; i++) {
-    gameBoard[i] = [];
-
-    for(let j = 0; j < boardHeight; j++) {
-      // Start with randomly chosen cell state
-      // Change to user input later
-      if(Math.random() >= 0.5) {
-        gameBoard[i][j] = "X";
-      } else {
-        gameBoard[i][j] = "O";
-      }
-    }
-  }
-
+  let gameBoard = createBoard(size, size);
   let boardHistory = [];
+
   boardHistory.push(gameBoard);
   displayBoard(gameBoard);
-  //board = round(board);
 
   window.addEventListener('keydown', (e) => {
     if(e.key === 'ArrowLeft') {
@@ -62,6 +52,7 @@ function startGame(size) {
       gameBoard = nextRound(gameBoard);
       boardHistory.push(gameBoard);
       console.log(boardHistory);
+      console.log(this);
     }
   });
 
@@ -75,9 +66,42 @@ function startGame(size) {
         gameBoard[k][n] = 'O';
       }
     }
+    boardHistory.push(gameBoard);
 
     displayBoard(gameBoard);
   });
+
+  const resetGridButton = document.getElementById("reset-grid");
+  const gridSize = document.getElementById("grid-size");
+
+  // Change grid size
+  gridSize.addEventListener("change", (e) => {
+    console.log(e.target.value);
+    //startGame(e.target.value);
+  });
+
+  // Reset grid
+  resetGridButton.addEventListener("click", (e) => {
+    console.log(e);
+    //startGame(gridSize.value);
+  });
+}
+
+function createBoard(width, height) {
+  const newBoard = [];
+  for(let i = 0; i < width; i++) {
+    newBoard[i] = [];
+
+    for(let j = 0; j < height; j++) {
+      if(Math.random() >= 0.5) {
+        newBoard[i][j] = "X";
+      } else {
+        newBoard[i][j] = "O";
+      }
+    }
+  }
+
+  return newBoard;
 }
 
 function previousRound() {
@@ -244,17 +268,5 @@ function displayBoard(board) {
   }
 }
 
-const resetGridButton = document.getElementById("reset-grid");
-const gridSize = document.getElementById("grid-size");
-
-startGame(gridSize.value);
-
-gridSize.addEventListener("change", (e) => {
-  console.log(e.target.value);
-  startGame(e.target.value);
-});
-
-resetGridButton.addEventListener("click", (e) => {
-  console.log(e);
-  startGame(gridSize.value);
-});
+const gridInput = document.getElementById("grid-size");
+startGame(gridInput.value);
