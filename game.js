@@ -78,12 +78,17 @@ function startGame(size) {
   gridSize.addEventListener("change", (e) => {
     console.log(e.target.value);
     //startGame(e.target.value);
+    
   });
 
   // Reset grid
   resetGridButton.addEventListener("click", (e) => {
     console.log(e);
     //startGame(gridSize.value);
+    gameBoard = createBoard(gridSize.value, gridSize.value);
+    boardHistory = [];
+    boardHistory.push(gameBoard);
+    displayBoard(gameBoard);
   });
 }
 
