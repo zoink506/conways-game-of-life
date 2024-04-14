@@ -73,27 +73,28 @@ function startGame(size) {
 
   const resetGridButton = document.getElementById("reset-grid");
   const gridSize = document.getElementById("grid-size");
+  const decreaseGridButton = document.getElementById("decrease-grid");
+  const increaseGridButton = document.getElementById("increase-grid");
 
   // Change grid size
-  gridSize.addEventListener("change", (e) => {
+  decreaseGridButton.addEventListener("click", (e) => {
     console.log(e);
-    //startGame(e.target.value);
 
-    // check size of grid - gameBoard.length
-    // compare to value of number input - e.target.value
-    // if the grid is increasing, push a 'O' onto every row of the grid, then push a row of 'O' to the end of the grid
-    // if the grid is decreasing, pop the last row from the grid, and pop the last cell of each row off the grid
-
-    if(gameBoard.length > e.target.value) {
-      // decreasing
-
-    } else if(gameBoard.length < e.target.value) {
-      // increasing
-      for(let e = 0; e < gameBoard.length; e++) {
-        gameBoard[e].push('O');
-      }
-      gameBoard.push(new Array(gameBoard[0].length).fill('O'));
+    // decreasing
+    gameBoard.pop();
+    for(let e = 0; e < gameBoard.length; e++) {
+      gameBoard[e].pop();
     }
+
+    displayBoard(gameBoard);
+  });
+
+  increaseGridButton.addEventListener("click", (e) => {
+    // increasing
+    for(let e = 0; e < gameBoard.length; e++) {
+      gameBoard[e].push('O');
+    }
+    gameBoard.push(new Array(gameBoard[0].length).fill('O'));
 
     displayBoard(gameBoard);
   });

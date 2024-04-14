@@ -22,3 +22,11 @@
 .disactive {
   background-color: gray;
 }
+
+.inline {
+  display: inline;
+}
+
+#grid-size-section {
+  margin: 1rem;
+}
