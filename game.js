@@ -45,19 +45,28 @@ function startGame(size) {
         console.log("board reverting...");
 
         // when reverting, the board should always stay the current size
-        // if the previous board state is bigger than the current board:
+        // if the previous board state is larger than the current board:
         //   > reduce the previous board size to match the size of the current board
         // if the previous board state is smaller than the current board:
         //   > increase the size of the previous board to match the current board
 
         previousBoard = boardHistory[boardHistory.length - 2];
+        const sizeDifference = gameBoard.length - previousBoard.length;
         if(previousBoard.length > gameBoard.length) {
           console.log("previous board is larger than the current board");
+          previousBoard.length = gameBoard.length;
+          for(let i = 0; i < previousBoard.length; i++) {
+            previousBoard[i].length = gameBoard[0].length;
+          }
+
+          //boardHistory.pop();
+          //gameBoard = boardHistory[boardHistory.length - 1];
+          //displayBoard(gameBoard);
 
         } else if(previousBoard.length < gameBoard.length) {
           console.log("previous board is smaller than the current board");
-          const sizeDifference = gameBoard.length - previousBoard.length;
           console.log(sizeDifference);
+
           const newColumns = new Array(sizeDifference).fill('O');
           const newRows = new Array(sizeDifference).fill(new Array(gameBoard[0].length).fill('O'))
           console.log(newColumns);
@@ -70,24 +79,18 @@ function startGame(size) {
           console.log(previousBoard);
           console.log(previousBoard === boardHistory[boardHistory.length - 2])
 
-          boardHistory.pop();
-          gameBoard = boardHistory[boardHistory.length - 1];
-          displayBoard(gameBoard);
+          //boardHistory.pop();
+          //gameBoard = boardHistory[boardHistory.length - 1];
+          //displayBoard(gameBoard);
 
         } else if(previousBoard.length === gameBoard.length) {
           console.log("previous board is equal in size to the current board");
-
-          boardHistory.pop();
-          gameBoard = boardHistory[boardHistory.length - 1];
-          displayBoard(gameBoard);
         }
         
-        // current code
-        //boardHistory.pop();
-        //gameBoard = boardHistory[boardHistory.length - 1];
-        //displayBoard(gameBoard);
 
-        //if(boardHistory[boardHistory.length - 1].length )
+        boardHistory.pop();
+        gameBoard = boardHistory[boardHistory.length - 1];
+        displayBoard(gameBoard);
       }
 
     } else if(e.key === 'ArrowRight') {
@@ -101,10 +104,11 @@ function startGame(size) {
   const clearGridButton = document.getElementById("clear-grid");
   clearGridButton.addEventListener("click", (e) => {
     boardHistory = [];
-    for(let k = 0; k < gridSize.value; k++) {
+    const boardSize = gameBoard.length;
+    for(let k = 0; k < boardSize; k++) {
       gameBoard[k] = [];
 
-      for(let n = 0; n < gridSize.value; n++) {
+      for(let n = 0; n < boardSize; n++) {
         gameBoard[k][n] = 'O';
       }
     }
