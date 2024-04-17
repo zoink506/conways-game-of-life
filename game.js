@@ -329,10 +329,28 @@ function displayBoard(board) {
       }
 
       newRow.append(newCell);
+      newCell.addEventListener("click", (e) => {
+        cellClicked(newCell, board, i, j);
+      });
     }
 
     // place newRow into #game-board div
     gameBoardElement.append(newRow);
+  }
+}
+
+function cellClicked(cell, board, row, column) {
+  console.log(cell.classList);
+  console.log(cell.classList.contains("active"))
+  if(cell.classList.contains("active")) {
+    // change it in the board array AND the dom
+    cell.classList.remove("active");
+    cell.classList.add("disactive");
+    board[row][column] = 'O';
+  } else {
+    cell.classList.remove("disactive");
+    cell.classList.add("active");
+    board[row][column] = 'X';
   }
 }
 
